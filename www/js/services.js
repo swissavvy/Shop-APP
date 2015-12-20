@@ -6,7 +6,8 @@ angular.module('starter.services', [])
     paypal_live_client_id: '',
     //paypal_current_env: 'PayPalEnvironmentSandbox', // when you are in the Sandbox
     paypal_current_env: 'PayPalEnvironmentProduction', // when you decide to go live.
-    paypal_merchant_name: ''
+    paypal_merchant_name: '',
+    apiUrl: 'http://tour.swisscrum-local.com',
   };
 })
 
@@ -16,14 +17,14 @@ angular.module('starter.services', [])
 })
 
 
-.service('productService', function($rootScope,$q, $http) {
+.service('productService', function($rootScope, $q, $http, Settings) {
   this.Products = [];
 
   this.getProducts = function(categoryId, search) {
     var q = $q.defer();
     var promises = [];
 
-    $http.get('http://tour.swisscrum-local.com/api/product/index', {params: {category_id: categoryId, search: search}})
+    $http.get(Settings.apiUrl + '/api/product/index', {params: {category_id: categoryId, search: search}})
       .then(function(result) {
         q.resolve(result.data.data);
       });
@@ -69,12 +70,12 @@ angular.module('starter.services', [])
 })
 
 
-.service('categoryService', function($q, $http) {
+.service('categoryService', function($q, $http, Settings) {
 
   var getCategories = function(categoryId) {
     var q = $q.defer();
 
-    $http.get('http://tour.swisscrum-local.com/api/category/index', {params: {category_id: categoryId}}).then(function(result){
+    $http.get(Settings.apiUrl + '/api/category/index', {params: {category_id: categoryId}}).then(function(result){
       q.resolve(result.data.data);
     });
 
@@ -93,14 +94,9 @@ angular.module('starter.services', [])
   this.getCatName = function(categoryId){
     var deferred = $q.defer();
 
-    $http.get('http://tour.swisscrum-local.com/api/category/index')
-      .success(function(result) {
-        var categories = result.data;
-
+    getCategories('').then(function(categories) {
+        var categories = categories;
         deferred.resolve(categories[categoryId].Name);
-      })
-      .error(function(error) {
-        deferred.reject(error);
       });
 
     return deferred.promise;
@@ -338,7 +334,7 @@ angular.module('starter.services', [])
 })
 
 
-.service('orderService', function($rootScope,$q) {
+.service('orderService', function($rootScope, $q, Settings) {
   this.currentOrder = {};
   this.newOrder = function(cartproducts,cartTotal) {
 		var deferred = $q.defer();
@@ -356,7 +352,7 @@ angular.module('starter.services', [])
     });
 
     console.log(params);
-    $http.post('http://tour.swisscrum-local.com/api/order/create', {params: {category_id: categoryId}}).then(function(result){
+    $http.post(Settings.apiUrl + '/api/order/create', {params: {category_id: categoryId}}).then(function(result){
       deferred.resolve(result.data.data);
       $rootScope.hide();
     });
