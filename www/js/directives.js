@@ -306,28 +306,18 @@ angular.module('starter.directives', [])
         }
       }
       else {
-        console.log(cartService.cartProducts,cartService.total);
-        orderService.newOrder(cartService.cartProducts,cartService.total)
-          .then(function (ordersaved) {
-            orderService.currentOrder = ordersaved;
-            cartService.getPaypalItems().then(function (results) {
-              var payment = paypalApp.createPayment(scope.total, "Order ID: "+ordersaved.id);
-              payment.invoiceNumber = ordersaved.id;
-              payment.items = results;
-              PayPalMobile.renderSinglePaymentUI(payment, paypalApp.onSuccessfulPayment, paypalApp.onUserCanceled);
-            });
-          });
 
         if (CheckoutValidation.checkAll(scope.userinfo)) {
           userService.register(scope.userinfo)
           .then(function (result) {
             $rootScope.isLoggedIn = true;
             // Subscribe to receive a notification for this specific user (testing purpose):
-            parsePlugin.subscribe(result.get("firstName"), function() {
-              console.log("RegisterCtrl ::: parsePlugin.subscribe : " + result.get("firstName"));
-            }, function(error) {
-              console.error('RegisterCtrl ::: parsePlugin.subscribe ::: error: ' + JSON.stringify(error));
-            });
+            //parsePlugin.subscribe(result.get("firstName"), function() {
+            //  console.log("RegisterCtrl ::: parsePlugin.subscribe : " + result.get("firstName"));
+            //}, function(error) {
+            //  console.error('RegisterCtrl ::: parsePlugin.subscribe ::: error: ' + JSON.stringify(error));
+            //});
+
             orderService.newOrder(cartService.cartProducts,cartService.total)
             .then(function (ordersaved) {
               orderService.currentOrder = ordersaved;

@@ -7,7 +7,7 @@ angular.module('starter.services', [])
     //paypal_current_env: 'PayPalEnvironmentSandbox', // when you are in the Sandbox
     paypal_current_env: 'PayPalEnvironmentProduction', // when you decide to go live.
     paypal_merchant_name: '',
-    apiUrl: 'http://tour.swisscrum-local.com',
+    apiUrl: 'http://tour.swisscrum.com',
   };
 })
 
@@ -267,53 +267,59 @@ angular.module('starter.services', [])
 	this.register = function(userInfo) {
     $rootScope.show('Registering...');
     var deferred = $q.defer();
-    var user = new Parse.User();
-    user.set("username", userInfo.email.toLowerCase());
-    user.set("password", userInfo.password);
-    user.set("email", userInfo.email.toLowerCase());
-		user.set("firstName", userInfo.firstName);
-		user.set("lastName", userInfo.lastName);
-		user.set("addressLineOne", userInfo.addressLineOne);
-		user.set("addressLineTwo", userInfo.addressLineTwo);
-		user.set("city", userInfo.city);
-		user.set("state", userInfo.state);
-		user.set("zipcode", userInfo.zipcode);
-    user.set("country", userInfo.country);
-    user.signUp(null, {
-	    success: function(user) {
-	      deferred.resolve(user);
-        $rootScope.hide();
-	    },
-	    error: function(user, error) {
-        console.log(JSON.stringify(error));
-				deferred.reject(error.message);
-        $rootScope.hide();
-	    }
-    })
+    //var user = new Parse.User();
+    //user.set("username", userInfo.email.toLowerCase());
+    //user.set("password", userInfo.password);
+    //user.set("email", userInfo.email.toLowerCase());
+		//user.set("firstName", userInfo.firstName);
+		//user.set("lastName", userInfo.lastName);
+		//user.set("addressLineOne", userInfo.addressLineOne);
+		//user.set("addressLineTwo", userInfo.addressLineTwo);
+		//user.set("city", userInfo.city);
+		//user.set("state", userInfo.state);
+		//user.set("zipcode", userInfo.zipcode);
+    //user.set("country", userInfo.country);
+    //user.signUp(null, {
+	 //   success: function(user) {
+	 //     deferred.resolve(user);
+    //    $rootScope.hide();
+	 //   },
+	 //   error: function(user, error) {
+    //    console.log(JSON.stringify(error));
+		//		deferred.reject(error.message);
+    //    $rootScope.hide();
+	 //   }
+    //})
+    deferred.resolve({uid: 1});
+    $rootScope.hide();
+
 		return deferred.promise;
 	}.bind(this);
   this.save = function(userInfo) {
     $rootScope.show('Saving...');
     var deferred = $q.defer();
-    var user = Parse.User.current();
-    user.set("firstName", userInfo.firstName);
-    user.set("lastName", userInfo.lastName);
-    user.set("addressLineOne", userInfo.addressLineOne);
-    user.set("addressLineTwo", userInfo.addressLineTwo);
-    user.set("city", userInfo.city);
-    user.set("state", userInfo.state);
-    user.set("zipcode", userInfo.zipcode);
-    user.set("country", userInfo.country);
-    user.save(null, {
-      success: function(user) {
-        deferred.resolve(user);
-        $rootScope.hide();
-      },
-      error: function(user, error) {
-        deferred.reject(error.message);
-        $rootScope.hide();
-      }
-    });
+    //var user = Parse.User.current();
+    //user.set("firstName", userInfo.firstName);
+    //user.set("lastName", userInfo.lastName);
+    //user.set("addressLineOne", userInfo.addressLineOne);
+    //user.set("addressLineTwo", userInfo.addressLineTwo);
+    //user.set("city", userInfo.city);
+    //user.set("state", userInfo.state);
+    //user.set("zipcode", userInfo.zipcode);
+    //user.set("country", userInfo.country);
+    //user.save(null, {
+    //  success: function(user) {
+    //    deferred.resolve(user);
+    //    $rootScope.hide();
+    //  },
+    //  error: function(user, error) {
+    //    deferred.reject(error.message);
+    //    $rootScope.hide();
+    //  }
+    //});
+    deferred.resolve({uid: 1});
+    $rootScope.hide();
+
     return deferred.promise;
   }.bind(this);
 	this.login = function(loginData) {
@@ -334,7 +340,7 @@ angular.module('starter.services', [])
 })
 
 
-.service('orderService', function($rootScope, $q, Settings) {
+.service('orderService', function($rootScope, $q, Settings, $http) {
   this.currentOrder = {};
   this.newOrder = function(cartproducts,cartTotal) {
 		var deferred = $q.defer();
@@ -344,15 +350,38 @@ angular.module('starter.services', [])
     var params = {
       uid: 1,
       amount: cartTotal,
-      items: []
+      firstName : "Lay",
+      lastName : "ww",
+      email : "2015@qq.com",
+      phone : "15478547895",
+      items : []
     };
 
     cartproducts.forEach(function(cartproduct) {
-      params.items.push(cartproduct);
+      var item = {
+        productId: cartproduct.id,
+        productName: cartproduct.Title,
+        quantity : cartproduct.Quantity,
+        price : cartproduct.Price,
+        image : cartproduct.Image1,
+        myOptions: []
+      };
+
+      cartproduct.myOptions.forEach(function(myOption){
+        var option = {
+          optionId : myOption.optionId,
+          optionValueId : myOption.optionValueId,
+          optionName : myOption.Name,
+          optionValueName : myOption.Value
+        };
+
+        item.myOptions.push(option);
+      });
+      params.items.push(item);
     });
 
     console.log(params);
-    $http.post(Settings.apiUrl + '/api/order/create', {params: {category_id: categoryId}}).then(function(result){
+    $http.post(Settings.apiUrl + '/api/order/create', params).then(function(result){
       deferred.resolve(result.data.data);
       $rootScope.hide();
     });
