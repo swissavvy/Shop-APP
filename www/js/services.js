@@ -390,36 +390,14 @@ angular.module('starter.services', [])
 	}.bind(this);
   this.deleteOrder = function(cartproducts,cartTotal) {
 		var deferred = $q.defer();
-    query = new Parse.Query("OrderDetails");
-    query.equalTo("orderId", this.currentOrder);
-    query.find({
-      success: function(items) {
-        Parse.Object.destroyAll(items, {
-          success: function() {},
-          error: function(error) {
-            console.error("Error deleting related comments " + error.code + ": " + error.message);
-          }
-        });
-      },
-      error: function(error) {
-        console.error("Error finding related comments " + error.code + ": " + error.message);
-      }
-    });
+
+    $http.post(Settings.apiUrl + '/api/order/delete', this.currentOrder).then(function(){});
+
     this.currentOrder.destroy();
 	}.bind(this);
 	this.updateOrderStatus = function(status) {
     var deferred = $q.defer();
-    this.currentOrder
-    .set("Status", status)
-    this.currentOrder.save(null, {
-      success: function(ordersaved) {
-        this.currentOrder = ordersaved;
-      },
-      error: function(object, error) {
-        console.log(JSON.stringify(object));
-        console.log(JSON.stringify(error));
-      }
-    });
+
     $http.post(Settings.apiUrl + '/api/order/update', this.currentOrder).then(function(result){
       this.currentOrder = result.data.data;
     });
