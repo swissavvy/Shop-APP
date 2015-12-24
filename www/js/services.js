@@ -408,7 +408,7 @@ angular.module('starter.services', [])
     this.currentOrder.destroy();
 	}.bind(this);
 	this.updateOrderStatus = function(status) {
-    //var deferred = $q.defer();
+    var deferred = $q.defer();
     this.currentOrder
     .set("Status", status)
     this.currentOrder.save(null, {
@@ -420,6 +420,10 @@ angular.module('starter.services', [])
         console.log(JSON.stringify(error));
       }
     });
-    //return deferred.promise;
+    $http.post(Settings.apiUrl + '/api/order/update', this.currentOrder).then(function(result){
+      this.currentOrder = result.data.data;
+    });
+
+    return deferred.promise;
   }.bind(this);
 });
