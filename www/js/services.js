@@ -194,7 +194,7 @@ angular.module('starter.services', [])
   };
   this.validateZipcode = function(zipcode) {
     if (typeof zipcode == 'undefined' || zipcode == '') {return false;}
-    var zipReg = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+    var zipReg = /(^\d{6}$)|(^\d{6}-\d{4}$)/;
     return zipReg.test(zipcode);
   };
 	this.checkLoggedInputs = function(checkoutDetails) {
