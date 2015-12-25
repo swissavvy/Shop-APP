@@ -212,70 +212,70 @@ angular.module('starter.directives', [])
 
 
 .directive('ionCheckoutFooter', function($rootScope,$location,$ionicHistory,$ionicPlatform,Settings,cartService,userService,orderService,CheckoutValidation) {
-  //var paypalApp = {
-  //  initialize: function () {
-  //    this.bindEvents();
-  //  },
-  //  bindEvents: function () {
-  //    $ionicPlatform.ready(function () {
-  //      paypalApp.onDeviceReady();
-  //    });
-  //  },
-  //  onDeviceReady: function () {
-  //    paypalApp.receivedEvent('deviceready');
-  //  },
-  //  receivedEvent: function (id) {
-  //    paypalApp.initPaymentUI();
-  //  },
-  //  initPaymentUI: function () {
-  //    var clientIDs = {
-  //      "PayPalEnvironmentProduction": Settings.paypal_live_client_id,
-  //      "PayPalEnvironmentSandbox": Settings.paypal_sandbox_client_id
-  //    };
-  //    PayPalMobile.init(clientIDs, paypalApp.onPayPalMobileInit);
-  //  },
-  //  onAuthorizationCallback: function (authorization) {
-  //    $rootScope.longnotify("Payment authorized");
-  //    console.log("authorization: " + JSON.stringify(authorization, null, 4));
-  //  },
-  //  onUserCanceled: function (result) {
-  //    $rootScope.longnotify("Payment cancelled");
-  //    orderService.updateOrderStatus("Cancelled");
-  //    orderService.currentOrder = {};
-  //  },
-  //  onSuccessfulPayment: function (payment,$timeout) {
-  //    $rootScope.longnotify("Payment successful.<br>Thank you for shopping with us.");
-  //    var response = payment.response;
-  //    if (response.state == "approved") {
-  //      cartService.emptyCart();
-  //      orderService.updateOrderStatus("Paid");
-  //      orderService.currentOrder = {};
-  //    }
-  //  },
-  //  createPayment: function (amount, description) {
-  //    var paymentDetails = new PayPalPaymentDetails(amount, "0.00", "0.00");
-  //    var payment = new PayPalPayment(amount, "USD", description, "Sale", paymentDetails);
-  //    return payment;
-  //  },
-  //  configuration: function () {
-  //    // for more options see `paypal-mobile-js-helper.js`
-  //    var config = new PayPalConfiguration({
-  //        merchantName: Settings.paypal_merchant_name,
-  //        merchantPrivacyPolicyURL: "",
-  //        merchantUserAgreementURL: ""
-  //    });
-  //    return config;
-  //  },
-  //  onPrepareRender: function () {
-  //  },
-  //  onPayPalMobileInit: function () {
-  //    PayPalMobile.prepareToRender(Settings.paypal_current_env,
-  //        paypalApp.configuration(),
-  //        paypalApp.onPrepareRender()
-  //    );
-  //  }
-  //};
-  //paypalApp.initialize();
+  var paypalApp = {
+    initialize: function () {
+      this.bindEvents();
+    },
+    bindEvents: function () {
+      $ionicPlatform.ready(function () {
+        paypalApp.onDeviceReady();
+      });
+    },
+    onDeviceReady: function () {
+      paypalApp.receivedEvent('deviceready');
+    },
+    receivedEvent: function (id) {
+      paypalApp.initPaymentUI();
+    },
+    initPaymentUI: function () {
+      var clientIDs = {
+        "PayPalEnvironmentProduction": Settings.paypal_live_client_id,
+        "PayPalEnvironmentSandbox": Settings.paypal_sandbox_client_id
+      };
+      PayPalMobile.init(clientIDs, paypalApp.onPayPalMobileInit);
+    },
+    onAuthorizationCallback: function (authorization) {
+      $rootScope.longnotify("Payment authorized");
+      console.log("authorization: " + JSON.stringify(authorization, null, 4));
+    },
+    onUserCanceled: function (result) {
+      $rootScope.longnotify("Payment cancelled");
+      orderService.updateOrderStatus("Cancelled");
+      orderService.currentOrder = {};
+    },
+    onSuccessfulPayment: function (payment,$timeout) {
+      $rootScope.longnotify("Payment successful.<br>Thank you for shopping with us.");
+      var response = payment.response;
+      if (response.state == "approved") {
+        cartService.emptyCart();
+        orderService.updateOrderStatus("Paid");
+        orderService.currentOrder = {};
+      }
+    },
+    createPayment: function (amount, description) {
+      var paymentDetails = new PayPalPaymentDetails(amount, "0.00", "0.00");
+      var payment = new PayPalPayment(amount, "USD", description, "Sale", paymentDetails);
+      return payment;
+    },
+    configuration: function () {
+      // for more options see `paypal-mobile-js-helper.js`
+      var config = new PayPalConfiguration({
+          merchantName: Settings.paypal_merchant_name,
+          merchantPrivacyPolicyURL: "",
+          merchantUserAgreementURL: ""
+      });
+      return config;
+    },
+    onPrepareRender: function () {
+    },
+    onPayPalMobileInit: function () {
+      PayPalMobile.prepareToRender(Settings.paypal_current_env,
+          paypalApp.configuration(),
+          paypalApp.onPrepareRender()
+      );
+    }
+  };
+  paypalApp.initialize();
 
   var link = function(scope, element, attr) {
     scope.$watch(function(){
