@@ -7,7 +7,7 @@ angular.module('starter.services', [])
     //paypal_current_env: 'PayPalEnvironmentSandbox', // when you are in the Sandbox
     paypal_current_env: 'PayPalEnvironmentProduction', // when you decide to go live.
     paypal_merchant_name: '',
-    apiUrl: 'http://tour.swisscrum.com',
+    apiUrl: 'http://tour.swisscrum-local.com',
   };
 })
 
@@ -262,7 +262,7 @@ angular.module('starter.services', [])
 })
 
 
-.service('userService', function($rootScope,$q) {
+.service('userService', function($rootScope,$q, $http, Settings) {
  	this.userInfo = {};
 	this.register = function(userInfo) {
     $rootScope.show('Registering...');
@@ -325,16 +325,17 @@ angular.module('starter.services', [])
 	this.login = function(loginData) {
     var deferred = $q.defer();
 		$rootScope.show('Logging in');
-    Parse.User.logIn((''+loginData.username).toLowerCase(), loginData.password, {
-      success: function(user) {
-				deferred.resolve(user);
-        $rootScope.hide();
-      },
-    	error: function(user, error) {
-        deferred.reject(error.message);
-        $rootScope.hide();
-      }
-    })
+
+    var params = {
+      identity: loginData.username,
+      password: loginData.password
+    };
+
+    $http.post(Settings.apiUrl + '/api/user/login', params).success(function(result){
+      deferred.resolve(result.data.data);
+      $rootScope.hide();
+    });
+
 		return deferred.promise;
   }.bind(this);
 })
