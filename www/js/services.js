@@ -267,31 +267,29 @@ angular.module('starter.services', [])
 	this.register = function(userInfo) {
     $rootScope.show('Registering...');
     var deferred = $q.defer();
-    //var user = new Parse.User();
-    //user.set("username", userInfo.email.toLowerCase());
-    //user.set("password", userInfo.password);
-    //user.set("email", userInfo.email.toLowerCase());
-		//user.set("firstName", userInfo.firstName);
-		//user.set("lastName", userInfo.lastName);
-		//user.set("addressLineOne", userInfo.addressLineOne);
-		//user.set("addressLineTwo", userInfo.addressLineTwo);
-		//user.set("city", userInfo.city);
-		//user.set("state", userInfo.state);
-		//user.set("zipcode", userInfo.zipcode);
-    //user.set("country", userInfo.country);
-    //user.signUp(null, {
-	 //   success: function(user) {
-	 //     deferred.resolve(user);
-    //    $rootScope.hide();
-	 //   },
-	 //   error: function(user, error) {
-    //    console.log(JSON.stringify(error));
-		//		deferred.reject(error.message);
-    //    $rootScope.hide();
-	 //   }
-    //})
-    deferred.resolve({uid: 1});
-    $rootScope.hide();
+    var params = {
+      username: userInfo.email.toLowerCase(),
+      password: userInfo.password,
+      email: userInfo.email.toLowerCase(),
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      addressLine1: userInfo.addressLineOne,
+      addressLine2: userInfo.addressLineTwo,
+      city: userInfo.city,
+      state: userInfo.state,
+      zipcode: userInfo.zipcode,
+      country: userInfo.country
+    };
+
+    $http.post(Settings.apiUrl + '/api/user/register', params).then(function(result){
+      if(result.data.status == 1){
+        deferred.resolve(result.data.data);
+      }else{
+        deferred.reject(result.data.msg);
+      }
+
+      $rootScope.hide();
+    });
 
 		return deferred.promise;
 	}.bind(this);
