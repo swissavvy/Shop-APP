@@ -7,7 +7,7 @@ angular.module('starter.services', [])
     //paypal_current_env: 'PayPalEnvironmentSandbox', // when you are in the Sandbox
     paypal_current_env: 'PayPalEnvironmentProduction', // when you decide to go live.
     paypal_merchant_name: '',
-    apiUrl: 'http://tour.swisscrum-local.com',
+    apiUrl: 'http://tour.swisscrum.com',
   };
 })
 
