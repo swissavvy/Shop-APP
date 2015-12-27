@@ -130,7 +130,6 @@ angular.module('starter.directives', [])
       scope.modal = modal;
     });
     scope.logout = function() {
-      Parse.User.logOut();
       userService.userInfo = {};
       $rootScope.isLoggedIn = false;
       $ionicHistory.nextViewOptions({disableBack: true});
@@ -146,13 +145,7 @@ angular.module('starter.directives', [])
     scope.doLogin = function() {
       userService.login(scope.loginData)
       .then(function(result) {
-        // Subscribe to receive a notification for this specific user (testing purpose):
-        parsePlugin.subscribe(result.get("firstName"), function() {
-          console.log("RegisterCtrl ::: parsePlugin.subscribe : " + result.get("firstName"));
-        }, function(error) {
-          console.error('RegisterCtrl ::: parsePlugin.subscribe ::: error: ' + JSON.stringify(error));
-        });
-        userService.userInfo = result.toJSON();
+        userService.userInfo = result;
         $rootScope.isLoggedIn = true;
         scope.closeLogin();
         $state.go('app.checkout',{},{reload:true});

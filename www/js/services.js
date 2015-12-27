@@ -331,7 +331,7 @@ angular.module('starter.services', [])
       password: loginData.password
     };
 
-    $http.post(Settings.apiUrl + '/api/user/login', params).success(function(result){
+    $http.post(Settings.apiUrl + '/api/user/login', params).then(function(result){
       deferred.resolve(result.data.data);
       $rootScope.hide();
     });
