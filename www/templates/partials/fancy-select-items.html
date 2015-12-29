@@ -7,7 +7,7 @@
     <div class="list">
       <label  ng-repeat="option in product.Options[(optionnumber-1)]" class="item item-text-wrap" ng-click='validateOption(option)'>
         {{option.Value}}
-        <span class="item-note">+ ${{option.deltaPrice}}</span>
+        <span class="item-note">${{option.deltaPrice}}</span>
       </label>
     </div>
   </ion-content>

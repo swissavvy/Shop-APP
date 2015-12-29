@@ -51,7 +51,7 @@ angular.module('starter.directives', [])
       scope.product.myOptions[(scope.optionnumber-1)] = option;
       scope.product.myPrice = scope.product.Price;
       scope.product.myOptions.forEach(function(option) {
-        scope.product.myPrice = Number(scope.product.myPrice) + Number(option.deltaPrice);
+        scope.product.myPrice = Number(option.deltaPrice);
       });
       scope.hideItems();
     }

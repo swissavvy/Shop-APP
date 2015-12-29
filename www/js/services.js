@@ -123,7 +123,7 @@ angular.module('starter.services', [])
       product.myPrice = product.Price;
       product.myAllOptions = "";
       product.myOptions.forEach(function(option) {
-        product.myPrice = Number(product.myPrice) + Number(option.deltaPrice);
+        product.myPrice = Number(option.deltaPrice);
         product.myAllOptions = product.myAllOptions + "|" + option.Name + ":" + option.Value;
       });
       this.cartProducts.forEach(function(prod, index, prods){
