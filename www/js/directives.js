@@ -268,7 +268,7 @@ angular.module('starter.directives', [])
       );
     }
   };
-  //paypalApp.initialize();
+  paypalApp.initialize();
 
   var link = function(scope, element, attr) {
     scope.$watch(function(){
