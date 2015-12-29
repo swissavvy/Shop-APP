@@ -396,8 +396,12 @@ angular.module('starter.services', [])
 	}.bind(this);
 	this.updateOrderStatus = function(status) {
     var deferred = $q.defer();
+    var params = {
+      order_number: this.currentOrder.order_number,
+      pay_status: (status == 'Paid' ? 1: 0)
+    };
 
-    $http.post(Settings.apiUrl + '/api/order/update', this.currentOrder).then(function(result){
+    $http.post(Settings.apiUrl + '/api/order/update', params).then(function(result){
       this.currentOrder = result.data.data;
     });
 
