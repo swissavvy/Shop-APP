@@ -286,8 +286,8 @@ angular.module('starter.directives', [])
           .then(function (ordersaved) {
             orderService.currentOrder = ordersaved;
             cartService.getPaypalItems().then(function (results) {
-              var payment = paypalApp.createPayment(scope.total, "Order ID: "+ordersaved.id);
-              payment.invoiceNumber = ordersaved.id;
+              var payment = paypalApp.createPayment(scope.total, "Order ID: "+ordersaved.order_number);
+              payment.invoiceNumber = ordersaved.order_number;
               payment.items = results;
               PayPalMobile.renderSinglePaymentUI(payment, paypalApp.onSuccessfulPayment, paypalApp.onUserCanceled);
             });
