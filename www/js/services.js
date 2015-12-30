@@ -330,8 +330,13 @@ angular.module('starter.services', [])
       password: loginData.password
     };
 
-    $http.post(Settings.apiUrl + '/api/user/login', params).then(function(result){
-      deferred.resolve(result.data.data);
+    $http.post(Settings.apiUrl + '/api/user/login', params).success(function(result){
+      if(result.status == 0){
+        deferred.reject(result.msg);
+      }else{
+        deferred.resolve(result.data);
+      }
+
       $rootScope.hide();
     });
 
