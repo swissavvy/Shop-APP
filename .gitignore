@@ -4,3 +4,6 @@
 node_modules/
 platforms/
 plugins/
+
+# phpstorm project files
+.idea

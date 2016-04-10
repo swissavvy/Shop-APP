@@ -1,0 +1,8 @@
+<ion-view title="orders">
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item collection-repeat="order in orders" href="#/app/order/{{order.id}}">
+        {{::order.order_number}}
+      </ion-item>
+    </ion-list>
+  </ion-content></ion-view>

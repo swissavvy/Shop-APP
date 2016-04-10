@@ -94,6 +94,26 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
         controller: 'ForgotPasswordController'
       }
     }
-  });
+  })
+  .state('app.orders', {
+    url: '/orders',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/orders.html',
+        controller: 'OrderController'
+      }
+    }
+  })
+  .state('app.order', {
+    url: '/order/:orderId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/orderDetail.html',
+        controller: 'OrderViewController'
+      }
+    }
+  })
+
+  ;
   $urlRouterProvider.otherwise('/app/catalog');
 });

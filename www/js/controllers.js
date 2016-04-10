@@ -75,6 +75,36 @@ angular.module('starter.controllers', [])
   });
 })
 
+//.controller('OrderController', function($scope,orderService,userService,$stateParams) {
+//  categoryService.getCatName($stateParams.userId)
+//      .then(function (name) {
+//        $scope.Title = name;
+//      });
+//  $scope.products = [];
+//  productService.loadProducts($stateParams.categoryId)
+//      .then(function (results) {
+//        $scope.products = results;
+//        $scope.currentcatid = $stateParams.categoryId;
+//      });
+//})
+.controller('OrderController', function($scope, orderService) {
+  $scope.Title = "orders";
+  $scope.orders = [];
+  $scope.userObj = JSON.parse(localStorage.getItem("user"));
+    orderService.loadAllOrders()
+    .then(function (results) {
+        $scope.orders = results;
+    });
+})
+.controller('OrderViewController', function($scope, productService) {
+  $scope.Title = "Order Detail";
+  $scope.products = [];
+  productService.loadAllProducts()
+      .then(function (results) {
+        $scope.products = results;
+      });
+})
+
 
 .controller('CheckoutController', function($scope,cartService) {
   $scope.cartProducts = cartService.cartProducts;

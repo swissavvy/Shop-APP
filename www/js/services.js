@@ -335,6 +335,7 @@ angular.module('starter.services', [])
         deferred.reject(result.msg);
       }else{
         deferred.resolve(result.data);
+        localStorage.setItem("user", JSON.stringify(result.data));
       }
 
       $rootScope.hide();
@@ -346,61 +347,75 @@ angular.module('starter.services', [])
 
 
 .service('orderService', function($rootScope, $q, Settings, $http) {
-  this.currentOrder = {};
-  this.newOrder = function(cartproducts,cartTotal) {
-		var deferred = $q.defer();
+    this.Orders = [];
+
+    this.getOrders = function(uid) {
+        var q = $q.defer();
+        var promises = [];
+        var userObj = JSON.parse(localStorage.getItem("user"));
+        $http.get(Settings.apiUrl + '/api/order', {params: {uid: userObj.uid}})
+            .then(function(result) {
+                q.resolve(result.data.data);
+            });
+
+        return q.promise;
+    }
+
+    this.currentOrder = {};
+    this.newOrder = function(cartproducts,cartTotal) {
+    var deferred = $q.defer();
     $rootScope.show('Sending');
 
     //添加订单
     var params = {
-      uid: 1,
-      amount: cartTotal,
-      firstName : "Lay",
-      lastName : "ww",
-      email : "2015@qq.com",
-      phone : "15478547895",
-      items : []
+    uid: 1,
+    amount: cartTotal,
+    firstName : "Lay",
+    lastName : "ww",
+    email : "2015@qq.com",
+    phone : "15478547895",
+    items : []
     };
 
     cartproducts.forEach(function(cartproduct) {
-      var item = {
-        productId: cartproduct.id,
-        productName: cartproduct.Title,
-        quantity : cartproduct.Quantity,
-        price : cartproduct.Price,
-        image : cartproduct.Image1,
-        myOptions: []
-      };
+    var item = {
+    productId: cartproduct.id,
+    productName: cartproduct.Title,
+    quantity : cartproduct.Quantity,
+    price : cartproduct.Price,
+    image : cartproduct.Image1,
+    myOptions: []
+    };
 
-      cartproduct.myOptions.forEach(function(myOption){
-        var option = {
-          optionId : myOption.optionId,
-          optionValueId : myOption.optionValueId,
-          optionName : myOption.Name,
-          optionValueName : myOption.Value
-        };
+    cartproduct.myOptions.forEach(function(myOption){
+    var option = {
+      optionId : myOption.optionId,
+      optionValueId : myOption.optionValueId,
+      optionName : myOption.Name,
+      optionValueName : myOption.Value
+    };
 
-        item.myOptions.push(option);
-      });
-      params.items.push(item);
+    item.myOptions.push(option);
+    });
+    params.items.push(item);
     });
 
     console.log(params);
     $http.post(Settings.apiUrl + '/api/order/create', params).then(function(result){
-      deferred.resolve(result.data.data);
-      $rootScope.hide();
+    deferred.resolve(result.data.data);
+    $rootScope.hide();
     });
 
-		return deferred.promise;
-	}.bind(this);
-  this.deleteOrder = function(cartproducts,cartTotal) {
+    return deferred.promise;
+    }.bind(this);
+    this.deleteOrder = function(cartproducts,cartTotal) {
 		var deferred = $q.defer();
 
     $http.post(Settings.apiUrl + '/api/order/delete', this.currentOrder).then(function(){});
 
     this.currentOrder.destroy();
 	}.bind(this);
-	this.updateOrderStatus = function(status) {
+    this.updateOrderStatus = function(status) {
     var deferred = $q.defer();
     var params = {
       order_number: this.currentOrder.order_number,
@@ -412,5 +427,16 @@ angular.module('starter.services', [])
     });
 
     return deferred.promise;
-  }.bind(this);
+    }.bind(this);
+    this.loadAllOrders = function(){
+        $rootScope.show();
+        var deferred = $q.defer();
+
+        this.getOrders('').then(function(orders){
+            deferred.resolve(orders);
+            $rootScope.hide();
+        });
+
+        return deferred.promise;
+    }.bind(this);
 });
