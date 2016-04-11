@@ -87,12 +87,14 @@ angular.module('starter.controllers', [])
       });
   })
 
-  .controller('OrderViewController', function ($scope, productService) {
+  .controller('OrderViewController', function ($scope, $rootScope, orderService, userService, $stateParams) {
+    $rootScope.show();
     $scope.Title = "Order Detail";
-    $scope.products = [];
-    productService.loadAllProducts()
+    $scope.order = [];
+    orderService.getOrder($stateParams.id)
       .then(function (results) {
-        $scope.products = results;
+        $scope.order = results;
+        $rootScope.hide();
       });
   })
 

@@ -105,7 +105,7 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
     }
   })
   .state('app.order', {
-    url: '/order/:orderId',
+    url: '/order/:id',
     views: {
       'menuContent': {
         templateUrl: 'templates/orderDetail.html',

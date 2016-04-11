@@ -367,6 +367,16 @@ angular.module('starter.services', [])
       return q.promise;
     }
 
+    this.getOrder = function (id) {
+      var q = $q.defer();
+      $http.get(Settings.apiUrl + '/api/order/view', {params: {id: id}})
+        .then(function (result) {
+          q.resolve(result.data.data);
+        });
+
+      return q.promise;
+    }
+
     this.currentOrder = {};
     this.newOrder = function (cartproducts, cartTotal) {
       var deferred = $q.defer();

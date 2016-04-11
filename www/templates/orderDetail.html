@@ -6,11 +6,11 @@
       </div>
       <div class="row">
           <div class="col col-25">Order ID</div>
-          <div class="col col-75"> #201604042325526847 </div>
+          <div class="col col-75"> #{{order.order_number}} </div>
       </div>
       <div class="row">
           <div class="col col-50">Payment Method:</div>
-          <div class="col col-75"> Paypal </div>
+          <div class="col col-75"> {{order.payment_name}} </div>
       </div>
       <div class="row">
           <div class="col col-50">Created At:</div>
@@ -18,15 +18,15 @@
       </div>
       <div class="row">
           <div class="col col-50">Customer:</div>
-          <div class="col col-75"> Lay ww  </div>
+          <div class="col col-75"> {{order.billing_first_name}} {{order.billing_last_name}}  </div>
       </div>
       <div class="row">
           <div class="col col-50"> Phone:</div>
-          <div class="col col-75"> 15478547895  </div>
+          <div class="col col-75"> {{order.billing_phone}}  </div>
       </div>
       <div class="row">
           <div class="col col-50"> Email:</div>
-          <div class="col col-75"> lww50213@qq.com  </div>
+          <div class="col col-75"> {{order.email}}  </div>
       </div>
       <div class="row">
           <div class="col">Status Info</div>
@@ -36,7 +36,7 @@
           <div class="col col-75"> 未提交  </div>
       </div>
 
-      <ion-footer menu-close="" class="bar">
-          <div class="title cart-footer">Continue</div>
-      </ion-footer>
+      <div class="bar bar-balanced">
+          <a href="#/app/orders" class="button button-icon title cart-footer">Continue</a>
+      </div>
   </ion-content></ion-view>
