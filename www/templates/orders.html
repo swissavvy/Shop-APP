@@ -1,8 +1,11 @@
 <ion-view title="orders">
   <ion-content class="has-header">
     <ion-list>
-      <ion-item collection-repeat="order in orders" href="#/app/order/{{order.id}}">
-        {{::order.order_number}}
+      <ion-item collection-repeat="order in orders track by $index" href="#/app/order/{{order.id}}" class="item-icon-right">
+        <h2>ID: {{order.order_number}}</h2><span class="item-note">未提交</span>
+        <p>{{order.billing_first_name}} {{order.billing_last_name}}  {{order.email}}</p>
+        <p>Amount: <span style="color: red">${{order.amount}}</span></p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
   </ion-content></ion-view>
