@@ -2,10 +2,10 @@
   <div class='ion-catalog-content'>
     <div class='list card widecard' ng-repeat='product in products track by $index'>
       <div class="item item-image">
-        <img ng-src="{{ product.Image1 }}">
+        <img ng-click="goToProduct(product.id)" ng-src="{{ product.Image1 }}">
       </div>
-      <div class="item item-divider item-text-wrap"><h2>{{product.Title}}</h2></div>
-      <div class="item item-text-wrap">{{product.Description}}</div>
+      <div class="item item-divider item-text-wrap" ng-click="goToProduct(product.id)"><h2>{{product.Title}}</h2></div>
+      <div class="item item-text-wrap" ng-click="goToProduct(product.id)">{{product.Description}}</div>
       <div class="item item-divider" ng-if='(product.Options && product.Options[0])'>
         <fancy-select product="product" optionnumber=1></fancy-select>
       </div>

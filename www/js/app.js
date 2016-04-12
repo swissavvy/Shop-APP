@@ -113,7 +113,33 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
       }
     }
   })
-
+  .state('app.user', {
+    url: '/user',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/userInfo.html',
+        controller: 'UserController'
+      }
+    }
+  })
+  .state('app.login', {
+    url: '/login',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login-a.html',
+        controller: 'LoginController'
+      }
+    }
+  })
+  .state('app.product', {
+    url: "/product/:id",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/product.html",
+        controller: 'ProductViewController'
+      }
+    }
+  })
   ;
   $urlRouterProvider.otherwise('/app/catalog');
 });

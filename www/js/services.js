@@ -64,6 +64,15 @@ angular.module('starter.services', [])
 
       return deferred.promise;
     };
+    this.getOne = function (id) {
+      var q = $q.defer();
+      $http.get(Settings.apiUrl + '/api/product/view', {params: {id: id}})
+        .then(function (result) {
+          q.resolve(result.data.data);
+        });
+
+      return q.promise;
+    };
   })
 
 

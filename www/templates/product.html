@@ -1,0 +1,27 @@
+<ion-view view-title="{{Title}}" class="bar-dark" cache-view="false">
+  <ion-content>
+    <div ng-if='(product.length!=0)'>
+      <div class='ion-catalog-content'>
+        <div class='list card widecard'>
+          <div class="item item-image">
+            <img ng-src="{{ product.Image1 }}">
+          </div>
+          <div class="item item-divider item-text-wrap"><h2>{{product.Title}}</h2></div>
+          <div class="item item-text-wrap">{{product.Description}}</div>
+          <div class="button-bar">
+            <button class="button ion-more icon-left bar-dark">{{product.categoryId.Name}}</button>
+            <button class="button button-positive ion-ios-cart-outline icon-left" ng-click='addToCart(product)'>Buy for ${{product.Price}}</button>
+          </div>
+          <div class="item item-divider item-text-wrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if='(product.length==0)'>
+      <div class='ion-catalog-content'>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="positive" style="text-align:center">No product yet.</div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,44 @@
+<ion-view view-title="{{Title}}" cache-view="false">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">First Name</span>
+        <input type="text" value="{{user.userProfile.firstname}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Last Name</span>
+        <input type="text" value="{{user.userProfile.lastname}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="text" value="{{user.email}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Phone</span>
+        <input type="text" value="{{user.userProfile.phone}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Country</span>
+        <input type="text" value="{{user.userProfile.country}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Region</span>
+        <input type="text" value="{{user.userProfile.region}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">City</span>
+        <input type="text" value="{{user.userProfile.city}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Address</span>
+        <input type="text" value="{{user.userProfile.address}}" disabled>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Address 2</span>
+        <input type="text" value="{{user.userProfile.address_2}}" disabled>
+      </label>
+    </div>
+    <a class="button button-full button-calm">Reset Password </a>
+    <a href="#/app" class="button button-full button-dark"> Continue </a>
+  </ion-content>
+</ion-view>

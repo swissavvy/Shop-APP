@@ -61,6 +61,20 @@ angular.module('starter.controllers', [])
       });
   })
 
+  .controller('ProductViewController', function ($rootScope, $scope, productService, $stateParams, cartService) {
+    $rootScope.show();
+    $scope.product = [];
+    productService.getOne($stateParams.id)
+      .then(function (result) {
+        $scope.Title = result.Title;
+        $scope.product = result;
+        $rootScope.hide();
+      });
+
+    $scope.addToCart = function(product){
+      cartService.addToCart(product);
+    };
+  })
 
   .controller('CategoryController', function ($scope, productService, categoryService, $stateParams) {
     categoryService.getCatName($stateParams.categoryId)
@@ -97,7 +111,31 @@ angular.module('starter.controllers', [])
         $rootScope.hide();
       });
   })
+  .controller('UserController', function ($scope, $rootScope, orderService, userService, $stateParams) {
+    $rootScope.show();
+    $scope.Title = "User Profile";
+    $scope.user = userService.getCurrentUser();
+    $rootScope.hide();
+  })
 
+  .controller('LoginController', function ($scope, $rootScope, userService) {
+    $scope.Title = 'Login';
+    $scope.doLogin = function() {
+      userService.login($scope.loginData)
+        .then(function(result) {
+          userService.userInfo = result;
+          $rootScope.isLoggedIn = true;
+          $scope.closeLogin();
+          $state.go('app.checkout',{},{reload:true});
+        }, function (error) {
+          scope.error = error;
+        });
+    };
+    $scope.closeLogin = function() {
+      //$scope.hide();
+      $scope.modal.hide();
+    };
+  })
 
   .controller('CheckoutController', function ($scope, cartService) {
     $scope.cartProducts = cartService.cartProducts;
