@@ -193,7 +193,6 @@ angular.module('starter.directives', [])
   var link = function(scope, element, attr) {
     scope.$watch(function(){
       scope.userinfo = userService.userInfo;
-      scope.user = userService.getCurrentUser();
       scope.isLoggedIn = $rootScope.isLoggedIn;
       scope.total = cartService.total;
     });

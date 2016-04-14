@@ -117,8 +117,26 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
     url: '/user',
     views: {
       'menuContent': {
-        templateUrl: 'templates/userInfo.html',
+        templateUrl: 'templates/user.html',
         controller: 'UserController'
+      }
+    }
+  })
+  .state('app.userProfile', {
+    url: '/userProfile',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/user-profile.html',
+        controller: 'UserProfileController'
+      }
+    }
+  })
+  .state('app.changePwd', {
+    url: '/changePwd',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/change-pwd.html',
+        controller: 'ChangePwdController'
       }
     }
   })

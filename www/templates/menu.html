@@ -15,9 +15,13 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-dark">
-      <h1 class="title">Shop Now</h1>
-    </ion-header-bar>
+    <div class="list" menu-close>
+      <a class="item item-avatar" style="padding:0 16px 16px 80px;" href="#/app/user">
+        <img src="http://ionicframework.com/img/docs/winston.jpg" style="top: 0px;">
+        <h2>webMaster</h2>
+        <p>Okay,who brought the dog?</p>
+      </a>
+    </div>
     <ion-header-bar class="bar-subheader" style="padding: 0 !important;">
       <div class="item item-input-inset my-menu">
         <label class="item-input-wrapper">
@@ -33,13 +37,6 @@
           {{menucategory.Prefix}} {{menucategory.Name}} ({{menucategory.Prods}})
         </ion-item>
       </ion-list>
-      <div class="list" menu-close>
-        <a class="item item-avatar" href="#/app/user">
-          <img src="http://ionicframework.com/img/docs/winston.jpg">
-          <h2>webMaster</h2>
-          <p>Okay,who brought the dog?</p>
-        </a>
-      </div>
     </ion-content>
   </ion-side-menu>
 

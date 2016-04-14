@@ -359,6 +359,28 @@ angular.module('starter.services', [])
 
       return deferred.promise;
     };
+    this.changePwd = function (changePwdData) {
+      var deferred = $q.defer();
+      $rootScope.show('Loading');
+
+      var params = {
+        oldPassword: changePwdData.oldPassword,
+        newPassword: changePwdData.newPassword,
+        ConfirmPwd: changePwdData.ConfirmPwd
+      };
+
+      $http.post(Settings.apiUrl + '/api/user/change-pwd', params).success(function (result) {
+        if (result.status == 0) {
+          deferred.reject(result.msg);
+        } else {
+          deferred.resolve(result.data);
+        }
+
+        $rootScope.hide();
+      });
+
+      return deferred.promise;
+    };
     this.getCurrentUser = function () {
       return JSON.parse(localStorage.getItem("user"));
     };

@@ -11,6 +11,7 @@ angular.module('starter.controllers', [])
     }
     $rootScope.isLoggedIn = false;
     $scope.loginData = {};
+    $scope.changePwdData = {};
     $scope.cartProducts = cartService.cartProducts;
     categoryService.loadMenuCategories()
       .then(function (menuCategories) {
@@ -113,9 +114,28 @@ angular.module('starter.controllers', [])
   })
   .controller('UserController', function ($scope, $rootScope, orderService, userService, $stateParams) {
     $rootScope.show();
-    $scope.Title = "User Profile";
+    $scope.Title = "My Account";
+    $rootScope.hide();
+  })
+  .controller('UserProfileController', function ($scope, $rootScope, orderService, userService, $stateParams) {
+    $rootScope.show();
+    $scope.Title = "My Account";
     $scope.user = userService.getCurrentUser();
     $rootScope.hide();
+  })
+  .controller('ChangePwdController', function ($scope, $rootScope, orderService, userService, $stateParams) {
+    //$rootScope.show();
+    $scope.Title = "Change Password";
+    $scope.changePwd = function() {
+      userService.changePwd($scope.changePwdData)
+        .then(function(result) {
+          //userService.userInfo = result;
+          //$scope.closeLogin();
+          $state.go('app.user');
+        }, function (error) {
+          scope.error = error;
+        });
+    };
   })
 
   .controller('LoginController', function ($scope, $rootScope, userService) {
