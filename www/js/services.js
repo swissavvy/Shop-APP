@@ -11,7 +11,6 @@ angular.module('starter.services', [])
     };
   })
 
-
   .factory('Search', function () {
     return {query: ""}
   })
@@ -364,9 +363,10 @@ angular.module('starter.services', [])
       $rootScope.show('Loading');
 
       var params = {
+        uid: 1,
         oldPassword: changePwdData.oldPassword,
         newPassword: changePwdData.newPassword,
-        ConfirmPwd: changePwdData.ConfirmPwd
+        confirmPwd: changePwdData.confirmPwd
       };
 
       $http.post(Settings.apiUrl + '/api/user/change-pwd', params).success(function (result) {

@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
       $ionicHistory.nextViewOptions({disableBack: true});
       $state.go('app.search', {}, {reload: true});
     }
-    $rootScope.isLoggedIn = false;
+    //$rootScope.isLoggedIn = false;
     $scope.loginData = {};
     $scope.changePwdData = {};
     $scope.cartProducts = cartService.cartProducts;
@@ -123,9 +123,10 @@ angular.module('starter.controllers', [])
     $scope.user = userService.getCurrentUser();
     $rootScope.hide();
   })
-  .controller('ChangePwdController', function ($scope, $rootScope, orderService, userService, $stateParams) {
+  .controller('ChangePwdController', function ($scope, $rootScope, orderService, userService, $stateParams, $state) {
     //$rootScope.show();
     $scope.Title = "Change Password";
+    $scope.changePwdData = userService.userInfo;
     $scope.changePwd = function() {
       userService.changePwd($scope.changePwdData)
         .then(function(result) {
@@ -133,7 +134,7 @@ angular.module('starter.controllers', [])
           //$scope.closeLogin();
           $state.go('app.user');
         }, function (error) {
-          scope.error = error;
+          $scope.error = error;
         });
     };
   })
