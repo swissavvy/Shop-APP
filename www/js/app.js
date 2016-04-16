@@ -1,7 +1,11 @@
 angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers','starter.services','starter.directives'])
 
 .run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup) {
-  $rootScope.$on('myCustomEvent', function(event, data) { console.log(data); });
+  $rootScope.$on('userInfo', function(event, data) {
+    $rootScope.userInfo = data;
+    console.log($rootScope.userInfo);
+    $rootScope.isLoggedIn = true;
+  });
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);

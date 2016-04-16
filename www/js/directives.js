@@ -139,9 +139,6 @@ angular.module('starter.directives', [])
       $ionicHistory.nextViewOptions({disableBack: true});
       /** 清空用户localStorage **/
       localStorage.removeItem("user");
-      var aa = JSON.parse(localStorage.getItem("user"));
-      console.log(aa);
-      console.log('1111');
       $state.go('app.catalog',{clear:true});
     };
     scope.forgot = function() {
@@ -156,7 +153,7 @@ angular.module('starter.directives', [])
       .then(function(result) {
         userService.userInfo = result;
         $rootScope.isLoggedIn = true;
-        $scope.$emit('myCustomEvent', 'Data to send');
+        scope.$emit('userInfo', result);
         scope.closeLogin();
         $state.go('app.checkout',{},{reload:true});
       }, function (error) {

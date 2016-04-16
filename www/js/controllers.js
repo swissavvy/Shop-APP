@@ -145,7 +145,7 @@ angular.module('starter.controllers', [])
         .then(function(result) {
           userService.userInfo = result;
           $rootScope.isLoggedIn = true;
-          $scope.$emit('myCustomEvent', 'Data to send');
+          $scope.$emit('userInfo', result);
           $scope.closeLogin();
           $state.go('app.checkout',{},{reload:true});
         }, function (error) {
