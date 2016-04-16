@@ -447,7 +447,6 @@ angular.module('starter.services', [])
         params.items.push(item);
       });
 
-      console.log(params);
       $http.post(Settings.apiUrl + '/api/order/create', params).then(function (result) {
         deferred.resolve(result.data.data);
         $rootScope.hide();

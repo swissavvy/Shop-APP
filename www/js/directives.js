@@ -195,7 +195,7 @@ angular.module('starter.directives', [])
 .directive('ionCheckout', function($rootScope,cartService,userService) {
   var link = function(scope, element, attr) {
     scope.$watch(function(){
-      scope.userinfo = userService.userInfo;
+      scope.userinfo = $rootScope.userInfo
       scope.isLoggedIn = $rootScope.isLoggedIn;
       scope.total = cartService.total;
     });
@@ -236,7 +236,6 @@ angular.module('starter.directives', [])
     },
     onAuthorizationCallback: function (authorization) {
       $rootScope.longnotify("Payment authorized");
-      console.log("authorization: " + JSON.stringify(authorization, null, 4));
     },
     onUserCanceled: function (result) {
       $rootScope.longnotify("Payment cancelled");

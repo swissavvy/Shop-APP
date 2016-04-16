@@ -3,7 +3,6 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
 .run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup) {
   $rootScope.$on('userInfo', function(event, data) {
     $rootScope.userInfo = data;
-    console.log($rootScope.userInfo);
     $rootScope.isLoggedIn = true;
   });
   $ionicPlatform.ready(function() {
