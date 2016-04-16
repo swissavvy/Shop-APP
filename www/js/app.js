@@ -1,6 +1,7 @@
 angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers','starter.services','starter.directives'])
 
 .run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup) {
+  $rootScope.$on('myCustomEvent', function(event, data) { console.log(data); });
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);

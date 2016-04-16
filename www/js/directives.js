@@ -137,6 +137,11 @@ angular.module('starter.directives', [])
       userService.userInfo = {};
       $rootScope.isLoggedIn = false;
       $ionicHistory.nextViewOptions({disableBack: true});
+      /** 清空用户localStorage **/
+      localStorage.removeItem("user");
+      var aa = JSON.parse(localStorage.getItem("user"));
+      console.log(aa);
+      console.log('1111');
       $state.go('app.catalog',{clear:true});
     };
     scope.forgot = function() {
@@ -364,7 +369,7 @@ angular.module('starter.directives', [])
             angular.element(iconfn).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(iconfn).removeClass('ion-loading-d');
+            angular.element(iconfn).removeClass('ion-loading-d ion-close-round');
             angular.element(iconfn).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -380,7 +385,7 @@ angular.module('starter.directives', [])
             angular.element(iconln).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(iconln).removeClass('ion-loading-d');
+            angular.element(iconln).removeClass('ion-loading-d ion-close-round');
             angular.element(iconln).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -412,7 +417,7 @@ angular.module('starter.directives', [])
             angular.element(icone).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(icone).removeClass('ion-loading-d');
+            angular.element(icone).removeClass('ion-loading-d ion-close-round');
             angular.element(icone).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -428,7 +433,7 @@ angular.module('starter.directives', [])
             angular.element(iconp).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(iconp).removeClass('ion-loading-d');
+            angular.element(iconp).removeClass('ion-loading-d ion-close-round');
             angular.element(iconp).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -462,7 +467,7 @@ angular.module('starter.directives', [])
             angular.element(icona).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(icona).removeClass('ion-loading-d');
+            angular.element(icona).removeClass('ion-loading-d ion-close-round');
             angular.element(icona).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -478,7 +483,7 @@ angular.module('starter.directives', [])
             angular.element(iconc).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(iconc).removeClass('ion-loading-d');
+            angular.element(iconc).removeClass('ion-loading-d ion-close-round');
             angular.element(iconc).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -494,7 +499,7 @@ angular.module('starter.directives', [])
             angular.element(icons).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(icons).removeClass('ion-loading-d');
+            angular.element(icons).removeClass('ion-loading-d ion-close-round');
             angular.element(icons).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -510,7 +515,7 @@ angular.module('starter.directives', [])
             angular.element(iconz).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(iconz).removeClass('ion-loading-d');
+            angular.element(iconz).removeClass('ion-loading-d ion-close-round');
             angular.element(iconz).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);
@@ -526,7 +531,7 @@ angular.module('starter.directives', [])
             angular.element(icons).addClass('ion-close-round').css({color: '#ED303C'});
             return;
           } else {
-            angular.element(icons).removeClass('ion-loading-d');
+            angular.element(icons).removeClass('ion-loading-d ion-close-round');
             angular.element(icons).addClass('ion-checkmark-round').css({color: '#1fda9a'});
           }
         }, 300);

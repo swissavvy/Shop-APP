@@ -15,11 +15,16 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <div class="list" menu-close>
+    <div class="list" menu-close ng-if='userObj'>
       <a class="item item-avatar" style="padding:0 16px 16px 80px;" href="#/app/user">
+        <img src="https://www.helptobuyese.org.uk/Sitefinity/WebsiteTemplates/BPHA-HTB/App_Themes/BPHA-HTB/Images/user-avatar.png" style="top: 0px;">
+        <span>Welcome webmaster</span>
+      </a>
+    </div>
+    <div class="list" menu-close ng-if='!userObj'>
+      <a class="item item-avatar" style="padding:0 16px 16px 80px;" href="#/app">
         <img src="http://ionicframework.com/img/docs/winston.jpg" style="top: 0px;">
-        <h2>webMaster</h2>
-        <p>Okay,who brought the dog?</p>
+        <h2>Login in</h2>
       </a>
     </div>
     <ion-cart-sub-footer menu-close></ion-cart-sub-footer>

@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 
-  .controller('AppCtrl', function ($scope, $rootScope, $ionicHistory, $ionicSideMenuDelegate, $state, cartService, categoryService, Search) {
+  .controller('AppCtrl', function ($scope, $rootScope, $ionicHistory, $ionicSideMenuDelegate, $state, cartService, categoryService, Search, userService) {
     $scope.search = Search;
     $scope.doSearch = function () {
       cordova.plugins.Keyboard.close();
@@ -10,6 +10,7 @@ angular.module('starter.controllers', [])
       $state.go('app.search', {}, {reload: true});
     }
     //$rootScope.isLoggedIn = false;
+    $scope.userObj = JSON.parse(localStorage.getItem("user"));
     $scope.loginData = {};
     $scope.changePwdData = {};
     $scope.cartProducts = cartService.cartProducts;
@@ -18,7 +19,6 @@ angular.module('starter.controllers', [])
         $scope.menucategories = menuCategories;
       });
   })
-
 
   .controller('ForgotPasswordController', function ($scope, $rootScope, $state) {
     $scope.user = {};
@@ -41,7 +41,6 @@ angular.module('starter.controllers', [])
       $state.go('app.login');
     };
   })
-
 
   .controller('SearchController', function ($scope, productService, Search) {
     $scope.Title = "Searching for " + Search.query;
@@ -146,6 +145,7 @@ angular.module('starter.controllers', [])
         .then(function(result) {
           userService.userInfo = result;
           $rootScope.isLoggedIn = true;
+          $scope.$emit('myCustomEvent', 'Data to send');
           $scope.closeLogin();
           $state.go('app.checkout',{},{reload:true});
         }, function (error) {
