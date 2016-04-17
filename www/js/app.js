@@ -1,6 +1,6 @@
 angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers','starter.services','starter.directives'])
 
-.run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup) {
+.run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup, $ionicHistory, $state) {
   $rootScope.$on('userInfo', function(event, data) {
     $rootScope.userInfo = data;
     $rootScope.isLoggedIn = true;
@@ -38,11 +38,21 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
     }, 999);
   };
   $rootScope.confirm = function(title,text) {
-    var confirmPopup = $ionicPopup.confirm({
-       title: title,
-       template: text
+    return $ionicPopup.confirm({
+      title: title,
+      template: text
     });
-    return confirmPopup;
+  };
+
+  /**
+   * 使用menu跳转
+   * @param to
+   * @param params
+   * @param options
+   */
+  $rootScope.goTo = function(to, params, options) {
+    $ionicHistory.nextViewOptions({disableBack: true});
+    $state.go(to, params, options);
   };
 })
 

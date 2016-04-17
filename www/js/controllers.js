@@ -138,7 +138,7 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('LoginController', function ($scope, $rootScope, userService) {
+  .controller('LoginController', function ($scope, $rootScope, userService, $state) {
     $scope.Title = 'Login';
     $scope.doLogin = function() {
       userService.login($scope.loginData)
@@ -146,15 +146,10 @@ angular.module('starter.controllers', [])
           userService.userInfo = result;
           $rootScope.isLoggedIn = true;
           $scope.$emit('userInfo', result);
-          $scope.closeLogin();
-          $state.go('app.checkout',{},{reload:true});
+          $rootScope.goTo('app.catalog');
         }, function (error) {
-          scope.error = error;
+          $rootScope.quicknotify('登录失败');
         });
-    };
-    $scope.closeLogin = function() {
-      //$scope.hide();
-      $scope.modal.hide();
     };
   })
 
