@@ -50,7 +50,7 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
    * @param params
    * @param options
    */
-  $rootScope.goTo = function(to, params, options) {
+  $rootScope.noBackGoTo = function(to, params, options) {
     $ionicHistory.nextViewOptions({disableBack: true});
     $state.go(to, params, options);
   };

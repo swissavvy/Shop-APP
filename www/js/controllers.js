@@ -146,10 +146,13 @@ angular.module('starter.controllers', [])
           userService.userInfo = result;
           $rootScope.isLoggedIn = true;
           $scope.$emit('userInfo', result);
-          $rootScope.goTo('app.catalog');
+          $rootScope.noBackGoTo('app.catalog');
         }, function (error) {
           $rootScope.quicknotify('登录失败');
         });
+    };
+    $scope.forgot = function() {
+      $state.go('app.forgot');
     };
   })
 

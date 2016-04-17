@@ -139,6 +139,7 @@ angular.module('starter.directives', [])
       $ionicHistory.nextViewOptions({disableBack: true});
       /** 清空用户localStorage **/
       localStorage.removeItem("user");
+      scope.$emit('userInfo', false);
       $state.go('app.catalog',{clear:true});
     };
     scope.forgot = function() {
