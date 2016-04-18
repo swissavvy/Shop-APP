@@ -71,7 +71,7 @@ angular.module('starter.controllers', [])
         $rootScope.hide();
       });
 
-    $scope.addToCart = function(product){
+    $scope.addToCart = function (product) {
       cartService.addToCart(product);
     };
   })
@@ -91,7 +91,7 @@ angular.module('starter.controllers', [])
 
   .controller('OrderController', function ($scope, $rootScope, orderService, userService) {
     $rootScope.show();
-    $scope.Title = "orders";
+    $scope.Title = "Orders";
     $scope.orders = [];
     $scope.userObj = userService.getCurrentUser;
     orderService.getOrders($scope.userObj.uid)
@@ -126,11 +126,9 @@ angular.module('starter.controllers', [])
     //$rootScope.show();
     $scope.Title = "Change Password";
     $scope.changePwdData = userService.userInfo;
-    $scope.changePwd = function() {
+    $scope.changePwd = function () {
       userService.changePwd($scope.changePwdData)
-        .then(function(result) {
-          //userService.userInfo = result;
-          //$scope.closeLogin();
+        .then(function (result) {
           $state.go('app.user');
         }, function (error) {
           $scope.error = error;
@@ -140,9 +138,9 @@ angular.module('starter.controllers', [])
 
   .controller('LoginController', function ($scope, $rootScope, userService, $state) {
     $scope.Title = 'Login';
-    $scope.doLogin = function() {
+    $scope.doLogin = function () {
       userService.login($scope.loginData)
-        .then(function(result) {
+        .then(function (result) {
           userService.userInfo = result;
           $rootScope.isLoggedIn = true;
           $scope.$emit('userInfo', result);
@@ -151,7 +149,7 @@ angular.module('starter.controllers', [])
           $rootScope.quicknotify('登录失败');
         });
     };
-    $scope.forgot = function() {
+    $scope.forgot = function () {
       $state.go('app.forgot');
     };
   })

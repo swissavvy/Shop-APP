@@ -5,6 +5,10 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
     $rootScope.userInfo = data;
     $rootScope.isLoggedIn = true;
   });
+  $rootScope.$on('isLoggedIn', function(event, data) {
+    $rootScope.isLoggedIn = data;
+    $rootScope.userInfo = false;
+  });
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);

@@ -137,9 +137,9 @@ angular.module('starter.directives', [])
       userService.userInfo = {};
       $rootScope.isLoggedIn = false;
       $ionicHistory.nextViewOptions({disableBack: true});
-      /** 清空用户localStorage **/
       localStorage.removeItem("user");
       scope.$emit('userInfo', false);
+      scope.$emit('isLoggedIn', false);
       $state.go('app.catalog',{clear:true});
     };
     scope.forgot = function() {
@@ -196,7 +196,7 @@ angular.module('starter.directives', [])
 .directive('ionCheckout', function($rootScope,cartService,userService) {
   var link = function(scope, element, attr) {
     scope.$watch(function(){
-      scope.userinfo = $rootScope.userInfo
+      scope.userinfo = userService.userInfo
       scope.isLoggedIn = $rootScope.isLoggedIn;
       scope.total = cartService.total;
     });
@@ -573,32 +573,3 @@ angular.module('starter.directives', [])
         }
     }
 });
-
-/*
-.directive('ionProductImage', function($timeout, $ionicModal, $ionicSlideBoxDelegate) {
-    var link = function(scope, element, attr) {
-      scope.closeModal = function() {
-        scope.modal.hide();
-        scope.modal.remove();
-      };
-      element.on('click', function(){
-        $ionicModal.fromTemplateUrl('templates/partials/cart-image-modal.html', {
-          animation: 'slide-left-right',
-          scope: scope
-        })
-        .then(function(modal){
-          scope.modal = modal;
-          scope.modal.show();
-          $timeout( function() {
-            $ionicSlideBoxDelegate.update();
-          });
-        });
-      });
-    };
-    return {
-      restrict: 'A',
-      link: link,
-      scope: '='
-    };
-})
-*/
