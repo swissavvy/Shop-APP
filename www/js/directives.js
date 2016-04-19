@@ -155,7 +155,9 @@ angular.module('starter.directives', [])
         $rootScope.isLoggedIn = true;
         scope.$emit('userInfo', result);
         scope.closeLogin();
-        $state.go('app.checkout',{},{reload:true});
+        /** 暂时跳转至首页 **/
+        $rootScope.noBackGoTo('app.catalog');
+        //$state.go('app.checkout',{},{reload:true});
       }, function (error) {
         scope.error = error;
       });
