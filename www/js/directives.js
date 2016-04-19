@@ -137,7 +137,6 @@ angular.module('starter.directives', [])
       userService.userInfo = {};
       $rootScope.isLoggedIn = false;
       $ionicHistory.nextViewOptions({disableBack: true});
-      localStorage.removeItem("user");
       scope.$emit('userInfo', false);
       scope.$emit('isLoggedIn', false);
       $state.go('app.catalog',{clear:true});
@@ -196,7 +195,7 @@ angular.module('starter.directives', [])
 .directive('ionCheckout', function($rootScope,cartService,userService) {
   var link = function(scope, element, attr) {
     scope.$watch(function(){
-      scope.userinfo = userService.userInfo
+      scope.userinfo = userService.userInfo;
       scope.isLoggedIn = $rootScope.isLoggedIn;
       scope.total = cartService.total;
     });
