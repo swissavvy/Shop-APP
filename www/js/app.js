@@ -14,7 +14,7 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
     }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
     }
   });
   $rootScope.show = function(text) {
