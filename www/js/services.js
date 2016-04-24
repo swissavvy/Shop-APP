@@ -2,7 +2,7 @@ angular.module('starter.services', [])
 
   .factory('Settings', function () {
     return {
-      paypal_sandbox_client_id: '',
+      paypal_sandbox_client_id: 'AXRig1R1RvYar-M2DP2YSJyEUeYBaRZShoihH_7TLjlzf8j1AYmx-voSE11615TfKHEeMb5SfrMDHc_i',
       paypal_live_client_id: '',
       paypal_current_env: 'PayPalEnvironmentSandbox', // when you are in the Sandbox
       //paypal_current_env: 'PayPalEnvironmentProduction', // when you decide to go live.
