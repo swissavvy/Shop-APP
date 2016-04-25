@@ -290,7 +290,7 @@ angular.module('starter.directives', [])
       if ($rootScope.isLoggedIn) {
         if (CheckoutValidation.checkLoggedInputs(scope.userinfo)) {
           userService.save(scope.userinfo);
-          orderService.newOrder(cartService.cartProducts,cartService.total)
+          orderService.newOrder(cartService.cartProducts,cartService.total, scope.userinfo)
           .then(function (ordersaved) {
             orderService.currentOrder = ordersaved;
             cartService.getPaypalItems().then(function (results) {
@@ -319,7 +319,7 @@ angular.module('starter.directives', [])
             //  console.error('RegisterCtrl ::: parsePlugin.subscribe ::: error: ' + JSON.stringify(error));
             //});
 
-            orderService.newOrder(cartService.cartProducts,cartService.total)
+            orderService.newOrder(cartService.cartProducts,cartService.total, scope.userinfo)
             .then(function (ordersaved) {
               orderService.currentOrder = ordersaved;
               cartService.getPaypalItems().then(function (results) {

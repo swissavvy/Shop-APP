@@ -362,8 +362,9 @@ angular.module('starter.services', [])
       var deferred = $q.defer();
       $rootScope.show('Loading');
 
+      var userInfo = $rootScope.userInfo;
       var params = {
-        uid: 1,
+        uid: userInfo.id,
         oldPassword: changePwdData.oldPassword,
         newPassword: changePwdData.newPassword,
         confirmPwd: changePwdData.confirmPwd
@@ -409,13 +410,14 @@ angular.module('starter.services', [])
     }
 
     this.currentOrder = {};
-    this.newOrder = function (cartproducts, cartTotal) {
+    this.newOrder = function (cartproducts, cartTotal, userinfo) {
       var deferred = $q.defer();
       $rootScope.show('Sending');
 
       //添加订单
+      var userInfo = $rootScope.userInfo;
       var params = {
-        uid: 1,
+        uid: userInfo.id,
         amount: cartTotal,
         firstName: "Lay",
         lastName: "ww",

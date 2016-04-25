@@ -93,8 +93,8 @@ angular.module('starter.controllers', [])
     $rootScope.show();
     $scope.Title = "Orders";
     $scope.orders = [];
-    $scope.userObj = userService.getCurrentUser;
-    orderService.getOrders($scope.userObj.uid)
+    $scope.uid = $rootScope.userInfo ? $rootScope.userInfo.id : 0;
+    orderService.getOrders($scope.uid)
       .then(function (results) {
         $scope.orders = results;
         $rootScope.hide();
@@ -123,9 +123,9 @@ angular.module('starter.controllers', [])
     $rootScope.hide();
   })
   .controller('ChangePwdController', function ($scope, $rootScope, orderService, userService, $stateParams, $state) {
-    //$rootScope.show();
     $scope.Title = "Change Password";
-    $scope.changePwdData = userService.userInfo;
+    //$scope.changePwdData = userService.userInfo;
+    $scope.changePwdData = {};
     $scope.changePwd = function () {
       userService.changePwd($scope.changePwdData)
         .then(function (result) {
