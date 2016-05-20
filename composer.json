@@ -1,0 +1,12 @@
+{
+    "name": "pavle/courier-pick-up",
+    "authors": [
+        {
+            "name": "Pavle Lee",
+            "email": "523260513@qq.com"
+        }
+    ],
+    "require": {
+        "overtrue/wechat": "~3.0"
+    }
+}
