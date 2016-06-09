@@ -251,6 +251,7 @@ angular.module('starter.directives', [])
         cartService.emptyCart();
         orderService.updateOrderStatus("Paid");
         orderService.currentOrder = {};
+        $rootScope.noBackGoTo('app.orders');
       }
     },
     createPayment: function (amount, description) {
@@ -285,10 +286,6 @@ angular.module('starter.directives', [])
     });
 
     element.addClass('bar bar-footer bar-positive');
-    if(cartService.total <= 0){
-      element.addClass('ng-hide');
-    }
-
     element.on('click', function(){
       var ionErrorDiv = document.getElementsByClassName('checkout-form-error');
       angular.element(ionErrorDiv).html('').css({color:'#ED303C',opacity:1});
@@ -296,14 +293,19 @@ angular.module('starter.directives', [])
         if (CheckoutValidation.checkLoggedInputs(scope.userinfo)) {
           userService.save(scope.userinfo);
           orderService.newOrder(cartService.cartProducts,cartService.total, scope.userinfo)
-          .then(function (ordersaved) {
-            orderService.currentOrder = ordersaved;
-            cartService.getPaypalItems().then(function (results) {
-              var payment = paypalApp.createPayment(scope.total, "Order ID: "+ordersaved.order_number);
-              payment.invoiceNumber = ordersaved.order_number;
-              payment.items = results;
-              PayPalMobile.renderSinglePaymentUI(payment, paypalApp.onSuccessfulPayment, paypalApp.onUserCanceled);
-            });
+          .then(function (result) {
+            if(result.status == 0){
+              $rootScope.longnotify(result.msg);
+            }else{
+              var ordersaved = result.data;
+              orderService.currentOrder = ordersaved;
+              cartService.getPaypalItems().then(function (results) {
+                var payment = paypalApp.createPayment(scope.total, "Order ID: "+ordersaved.order_number);
+                payment.invoiceNumber = ordersaved.order_number;
+                payment.items = results;
+                PayPalMobile.renderSinglePaymentUI(payment, paypalApp.onSuccessfulPayment, paypalApp.onUserCanceled);
+              });
+            }
           });
         }
         else {

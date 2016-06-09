@@ -310,31 +310,18 @@ angular.module('starter.services', [])
       return deferred.promise;
     };
     this.save = function (userInfo) {
-      $rootScope.show('Saving...');
-      var deferred = $q.defer();
-      //var user = Parse.User.current();
-      //user.set("firstName", userInfo.firstName);
-      //user.set("lastName", userInfo.lastName);
-      //user.set("addressLineOne", userInfo.addressLineOne);
-      //user.set("addressLineTwo", userInfo.addressLineTwo);
-      //user.set("city", userInfo.city);
-      //user.set("state", userInfo.state);
-      //user.set("zipcode", userInfo.zipcode);
-      //user.set("country", userInfo.country);
-      //user.save(null, {
-      //  success: function(user) {
-      //    deferred.resolve(user);
-      //    $rootScope.hide();
-      //  },
-      //  error: function(user, error) {
-      //    deferred.reject(error.message);
-      //    $rootScope.hide();
-      //  }
-      //});
-      deferred.resolve({uid: 1});
-      $rootScope.hide();
+      var user = this.getCurrentUser();
+      user.firstName = userInfo.firstName;
+      user.lastName = userInfo.lastName;
+      user.addressLineOne = userInfo.addressLineOne;
+      user.addressLineTwo = userInfo.addressLineTwo;
+      user.addressLineTwo = userInfo.addressLineTwo;
+      user.city = userInfo.city;
+      user.state = userInfo.state;
+      user.country = userInfo.country;
+      user.zipcode = userInfo.zipcode;
 
-      return deferred.promise;
+      localStorage.setItem("user", JSON.stringify(user));
     };
     this.login = function (loginData) {
       var deferred = $q.defer();
@@ -383,7 +370,8 @@ angular.module('starter.services', [])
       return deferred.promise;
     };
     this.getCurrentUser = function () {
-      return JSON.parse(localStorage.getItem("user"));
+      this.userInfo = JSON.parse(localStorage.getItem("user"));
+      return this.userInfo;
     };
   })
 
@@ -451,7 +439,7 @@ angular.module('starter.services', [])
       });
 
       $http.post(Settings.apiUrl + '/api/order/create', params).then(function (result) {
-        deferred.resolve(result.data.data);
+        deferred.resolve(result.data);
         $rootScope.hide();
       });
 
