@@ -283,7 +283,12 @@ angular.module('starter.directives', [])
       scope.userinfo = userService.userInfo;
       scope.total = cartService.total;
     });
+
     element.addClass('bar bar-footer bar-positive');
+    if(cartService.total <= 0){
+      element.addClass('ng-hide');
+    }
+
     element.on('click', function(){
       var ionErrorDiv = document.getElementsByClassName('checkout-form-error');
       angular.element(ionErrorDiv).html('').css({color:'#ED303C',opacity:1});
