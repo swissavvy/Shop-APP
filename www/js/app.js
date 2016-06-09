@@ -1,14 +1,22 @@
 angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers','starter.services','starter.directives'])
 
-.run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup, $ionicHistory, $state) {
+.run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup, $ionicHistory, $state, userService) {
+  //加载登录用户
+  if(userService.getCurrentUser()){
+    $rootScope.userInfo = userService.getCurrentUser();
+    $rootScope.isLoggedIn = true;
+  }
+
   $rootScope.$on('userInfo', function(event, data) {
     $rootScope.userInfo = data;
     $rootScope.isLoggedIn = true;
   });
+
   $rootScope.$on('isLoggedIn', function(event, data) {
     $rootScope.isLoggedIn = data;
     $rootScope.userInfo = false;
   });
+
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
@@ -17,6 +25,7 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
       StatusBar.styleLightContent();
     }
   });
+
   $rootScope.show = function(text) {
     $rootScope.loading = $ionicLoading.show({
       template: text ? text : 'Loading...',
@@ -26,21 +35,25 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers',
       showDelay: 0
     });
   };
+
   $rootScope.hide = function() {
     $ionicLoading.hide();
   };
+
   $rootScope.longnotify = function(text) {
     $rootScope.show(text);
     $window.setTimeout(function() {
       $rootScope.hide();
     }, 2999);
   };
+
   $rootScope.quicknotify = function(text) {
     $rootScope.show(text);
     $window.setTimeout(function() {
       $rootScope.hide();
     }, 999);
   };
+
   $rootScope.confirm = function(title,text) {
     return $ionicPopup.confirm({
       title: title,

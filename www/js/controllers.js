@@ -93,8 +93,8 @@ angular.module('starter.controllers', [])
     $rootScope.show();
     $scope.Title = "Orders";
     $scope.orders = [];
-    $scope.userObj = userService.getCurrentUser;
-    orderService.getOrders($scope.userObj.uid)
+    $scope.userObj = userService.getCurrentUser();
+    orderService.getOrders($scope.userObj.id)
       .then(function (results) {
         $scope.orders = results;
         $rootScope.hide();
@@ -146,7 +146,7 @@ angular.module('starter.controllers', [])
           $scope.$emit('userInfo', result);
           $rootScope.noBackGoTo('app.catalog');
         }, function (error) {
-          $rootScope.quicknotify('登录失败');
+          $rootScope.quicknotify(error);
         });
     };
     $scope.forgot = function () {
