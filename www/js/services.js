@@ -388,7 +388,7 @@ angular.module('starter.services', [])
   })
 
 
-  .service('orderService', function ($rootScope, $q, Settings, $http) {
+  .service('orderService', function ($rootScope, $q, Settings, $http, userService) {
     this.getOrders = function (uid) {
       var q = $q.defer();
       $http.get(Settings.apiUrl + '/api/order', {params: {uid: uid}})
@@ -411,6 +411,7 @@ angular.module('starter.services', [])
 
     this.currentOrder = {};
     this.newOrder = function (cartproducts, cartTotal, userinfo) {
+      var user = userService.getCurrentUser();
       var deferred = $q.defer();
       $rootScope.show('Sending');
 
@@ -419,10 +420,10 @@ angular.module('starter.services', [])
       var params = {
         uid: userInfo.id,
         amount: cartTotal,
-        firstName: "Lay",
-        lastName: "ww",
-        email: "2015@qq.com",
-        phone: "15478547895",
+        firstName: userinfo.firstName,
+        lastName: userinfo.lastName,
+        email: user.email,
+        phone: user.phone,
         items: []
       };
 

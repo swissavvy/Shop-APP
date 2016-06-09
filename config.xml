@@ -2,7 +2,7 @@
 <widget id="com.swisscrum.shop" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Shop</name>
   <description>
-        An Ionic Framework and Cordova project.
+    Swisscrum's shop app
     </description>
   <author email="523260513@qq.com" href="http://blog.liv1020.com/">
       Pavle Lee
