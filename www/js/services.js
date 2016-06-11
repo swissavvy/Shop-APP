@@ -44,7 +44,7 @@ angular.module('starter.services', [])
       $rootScope.show();
       var deferred = $q.defer();
 
-      this.getProducts(0).then(function (products) {
+      this.getProducts(null, searchquery).then(function (products) {
         deferred.resolve(products);
         $rootScope.hide();
       });
@@ -358,7 +358,7 @@ angular.module('starter.services', [])
       };
 
       $http.post(Settings.apiUrl + '/api/user/change-pwd', params).success(function (result) {
-        if (result.status == 0) {          
+        if (result.status == 0) {
           deferred.reject(result.msg);
         } else {
           deferred.resolve(result.data);
@@ -383,7 +383,7 @@ angular.module('starter.services', [])
       user.address_2 = user.addressLineTwo;
 
       $http.post(Settings.apiUrl + '/api/user/update-profile', user).success(function (result) {
-        if (result.status == 0) {      
+        if (result.status == 0) {
           deferred.reject(result.msg);
         } else {
           deferred.resolve(result.data);

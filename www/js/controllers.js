@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
   .controller('AppCtrl', function ($scope, $rootScope, $ionicHistory, $ionicSideMenuDelegate, $state, cartService, categoryService, Search, userService) {
     $scope.search = Search;
     $scope.doSearch = function () {
-      cordova.plugins.Keyboard.close();
+      //cordova.plugins.Keyboard.close();
       $ionicSideMenuDelegate.toggleLeft();
       $ionicHistory.nextViewOptions({disableBack: true});
       $state.go('app.search', {}, {reload: true});
