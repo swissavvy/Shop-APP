@@ -394,6 +394,14 @@ angular.module('starter.services', [])
 
       return deferred.promise;
     };
+
+    /**
+     * 退出登录
+     */
+    this.logout = function () {
+      localStorage.removeItem("user");
+      userService.userInfo = {};
+    }
   })
 
 

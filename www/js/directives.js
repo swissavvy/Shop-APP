@@ -134,7 +134,7 @@ angular.module('starter.directives', [])
       scope.modal = modal;
     });
     scope.logout = function() {
-      userService.userInfo = {};
+      userService.logout();
       $rootScope.isLoggedIn = false;
       $ionicHistory.nextViewOptions({disableBack: true});
       scope.$emit('userInfo', false);
@@ -196,9 +196,9 @@ angular.module('starter.directives', [])
 
 .directive('ionCheckout', function($rootScope,cartService,userService) {
   var link = function(scope, element, attr) {
+    scope.userinfo = userService.userInfo;
+    scope.isLoggedIn = $rootScope.isLoggedIn;
     scope.$watch(function(){
-      scope.userinfo = userService.userInfo;
-      scope.isLoggedIn = $rootScope.isLoggedIn;
       scope.total = cartService.total;
     });
   };
