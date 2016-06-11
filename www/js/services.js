@@ -358,7 +358,7 @@ angular.module('starter.services', [])
       };
 
       $http.post(Settings.apiUrl + '/api/user/change-pwd', params).success(function (result) {
-        if (result.status == 0) {
+        if (result.status == 0) {          
           deferred.reject(result.msg);
         } else {
           deferred.resolve(result.data);
@@ -372,6 +372,27 @@ angular.module('starter.services', [])
     this.getCurrentUser = function () {
       this.userInfo = JSON.parse(localStorage.getItem("user"));
       return this.userInfo;
+    };
+    //update user profile
+    this.updateProfile = function (user) {
+      var deferred = $q.defer();
+      $rootScope.show('Loading');
+
+      user.region = user.state;
+      user.address = user.addressLineOne;
+      user.address_2 = user.addressLineTwo;
+
+      $http.post(Settings.apiUrl + '/api/user/update-profile', user).success(function (result) {
+        if (result.status == 0) {      
+          deferred.reject(result.msg);
+        } else {
+          deferred.resolve(result.data);
+        }
+
+        $rootScope.hide();
+      });
+
+      return deferred.promise;
     };
   })
 

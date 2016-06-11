@@ -3,41 +3,42 @@
     <div class="list">
       <label class="item item-input item-stacked-label">
         <span class="input-label">First Name</span>
-        <input type="text" value="{{user.firstName}}">
+        <input type="text" ng-model="user.firstName">
+        <input type="hidden" ng-model="user.id">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Last Name</span>
-        <input type="text" value="{{user.lastName}}">
+        <input type="text" ng-model="user.lastName">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Email</span>
-        <input type="text" value="{{user.email}}">
+        <input type="text" ng-model="user.email">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Phone</span>
-        <input type="text" value="{{user.phone}}">
+        <input type="text" ng-model="user.phone">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Country</span>
-        <input type="text" value="{{user.country}}">
+        <input type="text" ng-model="user.country">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Region</span>
-        <input type="text" value="{{user.state}}">
+        <input type="text" ng-model="user.state">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">City</span>
-        <input type="text" value="{{user.city}}">
+        <input type="text" ng-model="user.city">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Address</span>
-        <input type="text" value="{{user.addressLineOne}}">
+        <input type="text" ng-model="user.addressLineOne">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Address 2</span>
-        <input type="text" value="{{user.addressLineTwo}}">
+        <input type="text" ng-model="user.addressLineTwo">
       </label>
     </div>
-    <a class="button button-full button-calm">Update</a>
+    <a class="button button-full button-calm" ng-click="updateProfile()">Update</a>
   </ion-content>
 </ion-view>

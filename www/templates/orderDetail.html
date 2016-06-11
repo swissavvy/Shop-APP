@@ -14,7 +14,7 @@
       </div>
       <div class="row">
           <div class="col col-50">Created At:</div>
-          <div class="col col-75"> 2016-04-04 23:25:52 </div>
+          <div class="col col-75"> {{order.created_at * 1000 | date : 'yyyy-MM-dd HH:mm:ss'}} </div>
       </div>
       <div class="row">
           <div class="col col-50">Customer:</div>
@@ -33,7 +33,9 @@
       </div>
       <div class="row">
           <div class="col col-50"> Order Status:</div>
-          <div class="col col-75"> 未提交  </div>
+          <div class="col col-75" ng-if='(order.order_status==0)'> 未提交 </div>
+          <div class="col col-75" ng-if='(order.order_status==1)'> 进行中 </div>
+          <div class="col col-75" ng-if='(order.order_status==2)'> 已完成 </div>
       </div>
   </ion-content>
 </ion-view>

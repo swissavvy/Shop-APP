@@ -116,11 +116,22 @@ angular.module('starter.controllers', [])
     $scope.Title = "My Account";
     $rootScope.hide();
   })
-  .controller('UserProfileController', function ($scope, $rootScope, orderService, userService, $stateParams) {
+  .controller('UserProfileController', function ($scope, $rootScope, orderService, userService, $stateParams, $state) {
     $rootScope.show();
     $scope.Title = "My Account";
     $scope.user = userService.getCurrentUser();
     $rootScope.hide();
+    $scope.updateProfile = function () {
+      userService.updateProfile($scope.user)
+        .then(function (result) {
+          $scope.$emit('userInfo', result);
+          localStorage.setItem("user", JSON.stringify(result));
+          $rootScope.quicknotify("Update Success.");
+          // $state.go('app.user');
+        }, function (error) {
+          $scope.error = error;
+        });
+    };
   })
   .controller('ChangePwdController', function ($scope, $rootScope, orderService, userService, $stateParams, $state) {
     //$rootScope.show();
@@ -129,6 +140,7 @@ angular.module('starter.controllers', [])
     $scope.changePwd = function () {
       userService.changePwd($scope.changePwdData)
         .then(function (result) {
+          $rootScope.quicknotify("Change password Success.");
           $state.go('app.user');
         }, function (error) {
           $scope.error = error;
