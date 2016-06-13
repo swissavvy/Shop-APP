@@ -407,7 +407,7 @@ angular.module('starter.services', [])
      */
     this.logout = function () {
       localStorage.removeItem("user");
-      userService.userInfo = {};
+      this.userInfo = {};
     }
   })
 
