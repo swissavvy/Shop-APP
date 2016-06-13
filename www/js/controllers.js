@@ -116,13 +116,11 @@ angular.module('starter.controllers', [])
   .controller('UserProfileController', function ($scope, $rootScope, orderService, userService, $stateParams, $state) {
     $rootScope.show();
     $scope.Title = "My Account";
-    $scope.user = userService.getCurrentUser();
+    $scope.user = userService.userInfo;
     $rootScope.hide();
     $scope.updateProfile = function () {
       userService.updateProfile($scope.user)
         .then(function (result) {
-          $scope.$emit('userInfo', result);
-          localStorage.setItem("user", JSON.stringify(result));
           $rootScope.quicknotify("Update Success.");
           // $state.go('app.user');
         }, function (error) {
@@ -150,9 +148,7 @@ angular.module('starter.controllers', [])
     $scope.doLogin = function () {
       userService.login($scope.loginData)
         .then(function (result) {
-          userService.userInfo = result;
           $rootScope.isLoggedIn = true;
-          $scope.$emit('userInfo', result);
           $rootScope.noBackGoTo('app.catalog');
         }, function (error) {
           $rootScope.quicknotify(error);

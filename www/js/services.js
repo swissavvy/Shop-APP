@@ -327,6 +327,7 @@ angular.module('starter.services', [])
     };
     this.login = function (loginData) {
       var deferred = $q.defer();
+      var userService = this;
       $rootScope.show('Logging in');
 
       var params = {
@@ -339,7 +340,7 @@ angular.module('starter.services', [])
           deferred.reject(result.msg);
         } else {
           deferred.resolve(result.data);
-          localStorage.setItem("user", JSON.stringify(result.data));
+          userService.save(result.data);
         }
 
         $rootScope.hide();
@@ -379,17 +380,19 @@ angular.module('starter.services', [])
     };
     //update user profile
     this.updateProfile = function (user) {
+      var userService = this;
       var deferred = $q.defer();
       $rootScope.show('Loading');
 
-      user.region = user.state;
-      user.address = user.addressLineOne;
-      user.address_2 = user.addressLineTwo;
+      this.userInfo.region = user.state;
+      this.userInfo.address = user.addressLineOne;
+      this.userInfo.address_2 = user.addressLineTwo;
 
       $http.post(Settings.apiUrl + '/api/user/update-profile', user).success(function (result) {
         if (result.status == 0) {
           deferred.reject(result.msg);
         } else {
+          userService.save(result.data);
           deferred.resolve(result.data);
         }
 

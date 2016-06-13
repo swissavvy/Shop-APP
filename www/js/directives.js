@@ -137,8 +137,6 @@ angular.module('starter.directives', [])
       userService.logout();
       $rootScope.isLoggedIn = false;
       $ionicHistory.nextViewOptions({disableBack: true});
-      scope.$emit('userInfo', false);
-      scope.$emit('isLoggedIn', false);
       $state.go('app.catalog',{clear:true});
     };
     scope.forgot = function() {
@@ -151,9 +149,7 @@ angular.module('starter.directives', [])
     scope.doLogin = function() {
       userService.login(scope.loginData)
       .then(function(result) {
-        userService.userInfo = result;
         $rootScope.isLoggedIn = true;
-        scope.$emit('userInfo', result);
         scope.closeLogin();
         /** 暂时跳转至首页 **/
         $rootScope.noBackGoTo('app.catalog');
