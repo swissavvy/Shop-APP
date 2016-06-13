@@ -8,6 +8,18 @@
           </div>
           <div class="item item-divider item-text-wrap"><h2>{{product.Title}}</h2></div>
           <div class="item item-text-wrap">{{product.Description}}</div>
+          <div class="item item-divider" ng-if='(product.Options && product.Options[0])'>
+            <fancy-select product="product" optionnumber=1></fancy-select>
+          </div>
+          <div class="item item-divider" ng-if='(product.Options && product.Options[1])'>
+            <fancy-select product="product" optionnumber=2></fancy-select>
+          </div>
+          <div class="item item-divider" ng-if='(product.Options && product.Options[2])'>
+            <fancy-select product="product" optionnumber=3></fancy-select>
+          </div>
+          <div class="item item-divider" ng-if='(product.Options && product.Options[3])'>
+            <fancy-select product="product" optionnumber=4></fancy-select>
+          </div>
           <div class="button-bar">
             <button class="button ion-more icon-left bar-dark">{{product.categoryId.Name}}</button>
             <button class="button button-positive ion-ios-cart-outline icon-left" ng-click='addToCart(product)'>Buy for ${{product.Price}}</button>

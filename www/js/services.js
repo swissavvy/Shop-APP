@@ -15,6 +15,16 @@ angular.module('starter.services', [])
     return {query: ""}
   })
 
+  .factory('Helper', function () {
+    return {
+      isEmptyObject: function (o) {
+        for (var x in o){
+          return false;
+        }
+        return true;
+      }
+    }
+  })
 
   .service('productService', function ($rootScope, $q, $http, Settings) {
     this.getProducts = function (categoryId, search) {
@@ -282,6 +292,7 @@ angular.module('starter.services', [])
     this.userInfo = {};
     this.register = function (userInfo) {
       $rootScope.show('Registering...');
+      var userService = this;
       var deferred = $q.defer();
       var params = {
         username: userInfo.email.toLowerCase(),
@@ -299,6 +310,7 @@ angular.module('starter.services', [])
 
       $http.post(Settings.apiUrl + '/api/user/register', params).then(function (result) {
         if (result.data.status == 1) {
+          userService.save(result.data.data);
           deferred.resolve(result.data.data);
         } else {
           deferred.reject(result.data.msg);
@@ -310,18 +322,8 @@ angular.module('starter.services', [])
       return deferred.promise;
     };
     this.save = function (userInfo) {
-      var user = this.getCurrentUser();
-      user.firstName = userInfo.firstName;
-      user.lastName = userInfo.lastName;
-      user.addressLineOne = userInfo.addressLineOne;
-      user.addressLineTwo = userInfo.addressLineTwo;
-      user.addressLineTwo = userInfo.addressLineTwo;
-      user.city = userInfo.city;
-      user.state = userInfo.state;
-      user.country = userInfo.country;
-      user.zipcode = userInfo.zipcode;
-
-      localStorage.setItem("user", JSON.stringify(user));
+      this.userInfo = userInfo;
+      localStorage.setItem("user", JSON.stringify(this.userInfo));
     };
     this.login = function (loginData) {
       var deferred = $q.defer();
@@ -370,7 +372,9 @@ angular.module('starter.services', [])
       return deferred.promise;
     };
     this.getCurrentUser = function () {
-      this.userInfo = JSON.parse(localStorage.getItem("user"));
+      if(JSON.parse(localStorage.getItem("user"))){
+        this.userInfo = JSON.parse(localStorage.getItem("user"));
+      }
       return this.userInfo;
     };
     //update user profile
@@ -428,19 +432,18 @@ angular.module('starter.services', [])
 
     this.currentOrder = {};
     this.newOrder = function (cartproducts, cartTotal, userinfo) {
-      var user = userService.getCurrentUser();
       var deferred = $q.defer();
       $rootScope.show('Sending');
 
       //添加订单
-      var userInfo = $rootScope.userInfo;
+      var userInfo = userService.userInfo;
       var params = {
         uid: userInfo.id,
         amount: cartTotal,
         firstName: userinfo.firstName,
         lastName: userinfo.lastName,
-        email: user.email,
-        phone: user.phone,
+        email: userInfo.email,
+        phone: userInfo.phone,
         items: []
       };
 

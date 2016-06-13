@@ -1,8 +1,8 @@
 angular.module('starter', ['ionic','ngIOS9UIWebViewPatch','starter.controllers','starter.services','starter.directives'])
 
-.run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup, $ionicHistory, $state, userService) {
+.run(function($ionicPlatform, $rootScope, $window, $ionicLoading, $ionicPopup, $ionicHistory, $state, userService, Helper) {
   //加载登录用户
-  if(userService.getCurrentUser()){
+  if(!Helper.isEmptyObject(userService.getCurrentUser())){
     $rootScope.userInfo = userService.getCurrentUser();
     $rootScope.isLoggedIn = true;
   }
